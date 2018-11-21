@@ -37,7 +37,7 @@ missing_episodes = {
             return;
         }*/
 
-        var show_name = document.getElementsByClassName("show-title")[0].textContent.replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g,"-");
+        var show_name = document.querySelector("a[data-qa-id='metadataTitleLink']").textContent.replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g,"-");
 
         // store current page hash so plugin doesn't insert tiles if page changed
         var current_hash = location.hash;
@@ -351,7 +351,7 @@ missing_episodes = {
     },
 
     insertSwitch: function() {
-        var action_bar = document.getElementsByClassName("action-bar-nav")[0];
+        var action_bar = document.querySelector("button[aria-label='Activity']");
         var list_tag = document.createElement("li");
 
         var a_tag = document.createElement("a");

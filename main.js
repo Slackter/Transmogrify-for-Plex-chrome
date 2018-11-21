@@ -151,7 +151,7 @@ function getPlexToken() {
 }
 
 function insertLoadingIcon() {
-    var nav_bar_right = document.body.getElementsByClassName("nav-bar-right")[0];
+    var nav_bar_right = document.body.querySelector("button[aria-label='Activity']");
 
     var list_element = document.createElement("li");
     list_element.setAttribute("id", "loading-extension");
@@ -345,7 +345,7 @@ function main() {
         // check if on library section
         else if (/^.*\?key=%2Flibrary%2Fsections%2F\d+.*$/.test(page_url)) {
             utils.debug("main detected we are in library section");
-            var page_identifier = page_url.match(/\/server\/(.[^\/]+)\/section\/(\d+)$/);
+            var page_identifier = page_url.match(/\/server\/(.[^\/]+)\?key=%2Flibrary%2Fsections%2F(\d+)$/);
             var machine_identifier = page_identifier[1];
             var section_num = page_identifier[2];
             utils.debug("machine identifier - " + machine_identifier);
@@ -383,7 +383,7 @@ function main() {
         // check if on movie/tv show details page
         else if (/^.*\/details\?key=%2Flibrary%2Fmetadata%2F\d+.*$/.test(page_url)) {
             utils.debug("main detected we are on movie/tv show details page");
-            var page_identifier = page_url.match(/\/server\/(.[^\/]+)\/details\/%2Flibrary%2Fmetadata%2F(\d+)$/);
+            var page_identifier = page_url.match(/\/server\/(.[^\/]+)\/details\?key=%2Flibrary%2Fmetadata%2F(\d+)$/);
             var machine_identifier = page_identifier[1];
             var parent_item_id = page_identifier[2];
             utils.debug("metadata id - " + parent_item_id);

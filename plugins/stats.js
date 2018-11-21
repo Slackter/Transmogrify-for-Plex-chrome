@@ -5,7 +5,7 @@ stats = {
             return;
         }
 
-        var nav_bar_right = document.body.getElementsByClassName("nav-bar-right")[0];
+        var nav_bar_right = document.body.querySelector("button[aria-label='Activity']");
 
         var list_element = document.createElement("li");
 
