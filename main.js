@@ -84,17 +84,17 @@ function runOnReady() {
         // page is ready when certain elements exist.
 
         // check if on library section
-        else if (/\/section\/\d+$/.test(document.URL)) {
-            if (document.getElementsByClassName("media-poster").length > 0) {
-                utils.debug("Instance of .media-poster detected. Page is ready");
+        else if (/^.*\?key=%2Flibrary%2Fsections%2F\d+.*$/.test(document.URL)) {
+           if (document.querySelector("div[data-qa-id='cellItem']")) {
+                utils.debug("Library Section Instance of cellItem detected. Page is ready");
                 window.clearInterval(interval);
                 main();
             }
         }
         // check if on movie/tv show details page
-        else if (/\/details\/%2Flibrary%2Fmetadata%2F(\d+)$/.test(document.URL)) {
-            if (document.getElementsByClassName("item-title").length > 0 || document.getElementsByClassName("show-title").length > 0) {
-                utils.debug("Instance of .item-title or .show-title detected. Page is ready");
+        else if (/^.*\/details\?key=%2Flibrary%2Fmetadata%2F\d+.*$/.test(document.URL)) {
+            if (document.querySelector("div[data-qa-id='cellItem']")) {
+                utils.debug("Movie / TV Show Instance of cellItem detected. Page is ready");
                 window.clearInterval(interval);
                 main();
             }
@@ -310,7 +310,7 @@ function main() {
         runOnReady();
     });
 
-    observer.observe(document.getElementsByClassName("dropdown-poster-container")[0], {subtree: true, childList: true});
+    observer.observe(document.querySelector("div[data-qa-id='cellItem']"), {subtree: true, childList: true});
 
     // use plex.tv for API requests if we have plex token, otherwise use server URL
     // as user is on local server and not signed in
@@ -343,7 +343,7 @@ function main() {
         }
 
         // check if on library section
-        else if (/\/section\/\d+$/.test(page_url)) {
+        else if (/^.*\?key=%2Flibrary%2Fsections%2F\d+.*$/.test(page_url)) {
             utils.debug("main detected we are in library section");
             var page_identifier = page_url.match(/\/server\/(.[^\/]+)\/section\/(\d+)$/);
             var machine_identifier = page_identifier[1];
@@ -381,7 +381,7 @@ function main() {
         }
 
         // check if on movie/tv show details page
-        else if (/\/details\/%2Flibrary%2Fmetadata%2F(\d+)$/.test(page_url)) {
+        else if (/^.*\/details\?key=%2Flibrary%2Fmetadata%2F\d+.*$/.test(page_url)) {
             utils.debug("main detected we are on movie/tv show details page");
             var page_identifier = page_url.match(/\/server\/(.[^\/]+)\/details\/%2Flibrary%2Fmetadata%2F(\d+)$/);
             var machine_identifier = page_identifier[1];
